@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search> 
+  
+  
+    
+    <entry>
+      <title>回转寿司</title>
+      <link href="/post/e5c65489.html"/>
+      <url>/post/e5c65489.html</url>
+      
+        <content type="html"><![CDATA[<h1 id="题目："><a href="#题目：" class="headerlink" title="题目："></a>题目：</h1><p><strong>小美请小团吃回转寿司。转盘上有N盘寿司围成一圈，第1盘与第2盘相邻，第2盘与第3盘相邻，…，第N-1盘与第N盘相邻，第N盘与第1盘相邻。小团认为第i盘寿司的美味值为A[i]（可能是负值，如果小团讨厌这盘寿司）。现在，小团要在转盘上选出连续的若干盘寿司，使得这些寿司的美味值之和最大（允许不选任何寿司，此时美味值总和为0）。</strong> </p><p>解：</p><p>  <strong>(1) 不考虑环形得到的最大值</strong></p><p>  <strong>(2) 不考虑环形得到的最小值，环形总值 - 最小值 &#x3D; 最大值</strong></p><p><strong>动态规划方程 dp[i] &#x3D; max ( arr[i], arr[i]+dp[i-1] )</strong> </p><p>  <strong>最大美味值等于（1）（2）的最大值</strong></p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Scanner;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 注意类名必须为 Main, 不要有任何 package xxx 信息</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Main</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">Scanner</span> <span class="variable">in</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Scanner</span>(System.in);</span><br><span class="line">        <span class="type">int</span> <span class="variable">t</span> <span class="operator">=</span> in.nextInt();</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; t; i++) &#123;</span><br><span class="line">            <span class="type">int</span> <span class="variable">n</span> <span class="operator">=</span> in.nextInt();</span><br><span class="line">            <span class="type">int</span>[] arr = <span class="keyword">new</span> <span class="title class_">int</span>[n+<span class="number">1</span>];</span><br><span class="line">            <span class="type">int</span> sum=<span class="number">0</span>;</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">1</span>;j&lt;=n;j++)&#123;</span><br><span class="line">                arr[j]=in.nextInt();</span><br><span class="line">                sum+=arr[j];</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="type">int</span>[] dpmax=<span class="keyword">new</span> <span class="title class_">int</span>[n+<span class="number">1</span>];</span><br><span class="line">            <span class="type">int</span>[] dpmin=<span class="keyword">new</span> <span class="title class_">int</span>[n+<span class="number">1</span>];</span><br><span class="line">            <span class="type">int</span> max=<span class="number">0</span>;</span><br><span class="line">            <span class="type">int</span> min=<span class="number">0</span>;</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">1</span>;j&lt;=n;j++)&#123;</span><br><span class="line">                dpmax[j]=Math.max(arr[j],arr[j]+dpmax[j-<span class="number">1</span>]);</span><br><span class="line">                max=Math.max(max,dpmax[j]);</span><br><span class="line">                dpmin[j]=Math.min(arr[j],arr[j]+dpmin[j-<span class="number">1</span>]);</span><br><span class="line">                min=Math.min(min,dpmin[j]);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="type">int</span> res=Math.max(max,sum-min);</span><br><span class="line">            System.out.println(res);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> 刷题笔记 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> dp </tag>
+            
+            <tag> 环形 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>排序</title>
+      <link href="/post/a444b428.html"/>
+      <url>/post/a444b428.html</url>
+      
+        <content type="html"><![CDATA[<h2 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h2><h4 id="快速排序（不稳定"><a href="#快速排序（不稳定" class="headerlink" title="快速排序（不稳定"></a>快速排序（不稳定</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">以 [3,4,6,1,2,4,7] 为例，以第一个元素3为base，定义左右两个指针（小熊l，小熊r），分别从两端开始扫描。从右向左找比3小的数，替换l所在位置的元素。再从左往右找比3大的数，然后替换r所在位置的元素。重复此过程直至两个小熊重合（两个指针指向同一元素），base替换此元素，此时第一轮结束。再递归排序base左右两部分的元素</span><br></pre></td></tr></table></figure><h4 id="选择排序（不稳定"><a href="#选择排序（不稳定" class="headerlink" title="选择排序（不稳定"></a>选择排序（不稳定</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">（1）首先从原始数组中选择最小的1个数据，将其和位于第1个位置的数据交换。</span><br><span class="line">（2）接着从剩下的n-1个数据中选择次小的1个元素，将其和第2个位置的数据交换</span><br><span class="line">（3）然后，这样不断重复，直到最后两个数据完成交换。最后，便完成了对原始数组的从小到大的排序。</span><br></pre></td></tr></table></figure><h4 id="堆排序（不稳定"><a href="#堆排序（不稳定" class="headerlink" title="堆排序（不稳定"></a>堆排序（不稳定</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1.首先将待排序的数组构造成一个大根堆，此时，整个数组的最大值就是堆结构的顶端</span><br><span class="line">2.将顶端的数与末尾的数交换，此时，末尾的数为最大值，剩余待排序数组个数为n-1</span><br><span class="line">3.将剩余的n-1个数再构造成大根堆，再将顶端数与n-1位置的数交换，如此反复执行，便能得到有序数组</span><br></pre></td></tr></table></figure><h4 id="希尔排序（不稳定"><a href="#希尔排序（不稳定" class="headerlink" title="希尔排序（不稳定"></a>希尔排序（不稳定</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1. 先选定一个整数gap，把待排序文件中所有记录分成gap个组，所有距离为gap的记录分在同一组内，并对每一组内的元素进行排序。</span><br><span class="line">2. 然后将gap逐渐减小重复上述分组和排序的工作。</span><br><span class="line">3. 当到达gap=1时，所有元素在统一组内排好序。</span><br></pre></td></tr></table></figure><h4 id="冒泡排序"><a href="#冒泡排序" class="headerlink" title="冒泡排序"></a><strong>冒泡排序</strong></h4>]]></content>
+      
+      
+      <categories>
+          
+          <category> 计算机基础 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 数据结构 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>刷题常用方法</title>
+      <link href="/post/68580321.html"/>
+      <url>/post/68580321.html</url>
+      
+        <content type="html"><![CDATA[<h1 id="常用方法"><a href="#常用方法" class="headerlink" title="常用方法"></a>常用方法</h1><h2 id="PriorityQueue"><a href="#PriorityQueue" class="headerlink" title="PriorityQueue"></a>PriorityQueue</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">new PriorityQueue&lt;&gt;(new Comparator&lt;Interger&gt;()&#123;</span><br><span class="line">@Override</span><br><span class="line">public int compare(Integer t1, Integer t2)&#123;</span><br><span class="line">return t2 - t1;</span><br><span class="line">&#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure><p><strong>常用方法</strong>：</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">add()</span><br><span class="line"><span class="comment">//获取队列首部元素，无删除</span></span><br><span class="line">peek()</span><br><span class="line"><span class="comment">//获取然后删除</span></span><br><span class="line">poll()</span><br></pre></td></tr></table></figure><h2 id="List"><a href="#List" class="headerlink" title="List"></a>List</h2><p><strong>常用方法</strong></p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">add()</span><br><span class="line">remove()</span><br><span class="line">set(1,&quot;&quot;)</span><br></pre></td></tr></table></figure><h2 id="HashMap"><a href="#HashMap" class="headerlink" title="HashMap"></a>HashMap</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">put()</span><br><span class="line">size()</span><br><span class="line">remove()</span><br><span class="line">values()</span><br><span class="line">keySet()</span><br><span class="line">entrySet() <span class="comment">//Set&lt;Entry&lt;String,Integer&gt;&gt;</span></span><br></pre></td></tr></table></figure><h2 id="Stack"><a href="#Stack" class="headerlink" title="Stack"></a>Stack</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">push()</span><br><span class="line">peek()</span><br><span class="line">pop()</span><br></pre></td></tr></table></figure><h2 id="Tree"><a href="#Tree" class="headerlink" title="Tree"></a>Tree</h2><h3 id="中序遍历"><a href="#中序遍历" class="headerlink" title="中序遍历"></a>中序遍历</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Stack&lt;Node&gt; stack = new LinkedList&lt;TreeNode&gt;();</span><br><span class="line">while(root!=null||!stk.isEmpty())&#123;</span><br><span class="line">while(root!=null)&#123;</span><br><span class="line">stack.push(root);</span><br><span class="line">root = root.left;</span><br><span class="line">&#125;</span><br><span class="line">root = stk.pop</span><br><span class="line">res.add(root.val);</span><br><span class="line">root=root.right;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="后序遍历"><a href="#后序遍历" class="headerlink" title="后序遍历"></a>后序遍历</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">publuc int maxDepth(Node root)&#123;</span><br><span class="line">if(root==null) return 0;</span><br><span class="line">else&#123;</span><br><span class="line">int leftHeight=maxDepth(root.left);</span><br><span class="line">int rightHeight=maxDepth(root.right);</span><br><span class="line">return Math.max(leftHeight,rightHeight)+1;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="层序遍历"><a href="#层序遍历" class="headerlink" title="层序遍历"></a>层序遍历</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">Queue&lt;&gt; queue = new LinkedList&lt;&gt;();</span><br><span class="line">List ans = new LinkedList&lt;&gt;();</span><br><span class="line">if(root == null)&#123;</span><br><span class="line">return ans;</span><br><span class="line">&#125;</span><br><span class="line">queue.add(root);</span><br><span class="line">while(!queue.isEmpty())&#123;</span><br><span class="line">int size = queue.size();</span><br><span class="line">for(int i = 0; i &lt; size; i++)&#123;</span><br><span class="line">TreeNode node = queque.poll();</span><br><span class="line">if(node.left!=null) queue.add(node.left);</span><br><span class="line">if(node.right!=null) queue.add(node.right);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> 刷题笔记 </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>刷题零碎知识点</title>
+      <link href="/post/668058a3.html"/>
+      <url>/post/668058a3.html</url>
+      
+        <content type="html"><![CDATA[<h3 id="1-String-Join-方法-A-String-B-String"><a href="#1-String-Join-方法-A-String-B-String" class="headerlink" title="1.String.Join 方法 (A (String), B (String[]))"></a>1.String.Join 方法 (A (String), B (String[]))</h3><p>在指定 String 数组B的每个元素之间串联指定的分隔符 A，从而产生单个串联的字符串</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">String [] tmpStr = &#123;abc, def, ghi&#125;;</span><br><span class="line">String jn = string.Join(&quot;-&quot;, tmpStr);// 此时输出为&quot;abc-def-ghi&quot;</span><br><span class="line">// 常见用法:字符串数组chs-&gt;字符串str</span><br><span class="line">String.join(&quot;&quot;,strings)//&#123;&quot;abcdefghi&quot;&#125;</span><br></pre></td></tr></table></figure><h3 id="2-split-根据匹配给定的正则表达式来拆分字符串"><a href="#2-split-根据匹配给定的正则表达式来拆分字符串" class="headerlink" title="2.split() 根据匹配给定的正则表达式来拆分字符串"></a>2.split() 根据匹配给定的正则表达式来拆分字符串</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">String str = &quot;Welcome-to-Runoob&quot;;</span><br><span class="line">for (String retval: str.split(&quot;-&quot;))&#123;</span><br><span class="line"> System.out.println(retval);</span><br><span class="line">&#125;  </span><br><span class="line">// 分隔符返回值 :Welcome  to  Runoob</span><br><span class="line">// 此方法常用来字符串-&gt;字符串数组(输入模式下的输入数组后的处理)</span><br></pre></td></tr></table></figure><h3 id="3-StringBuilder的delete-与deleteCharAt"><a href="#3-StringBuilder的delete-与deleteCharAt" class="headerlink" title="3.StringBuilder的delete()与deleteCharAt()"></a>3.StringBuilder的delete()与deleteCharAt()</h3><p>两个都是用来删除StringBuilder字符串指定索引处字符的方法</p><p>delete（int a,int b）有两个参数，删除索引从[a,b)的字符；</p><p>deleteCharAt（int a）只有一个参数，使用时删除索引为a的字符；</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">StringBuffer buff = new StringBuffer(&quot;0123456789&quot;);</span><br><span class="line">System.out.println(&quot;buff=&quot;+buff);</span><br><span class="line"></span><br><span class="line">//删除下标从3到5的字符</span><br><span class="line">buff.delete(3,5);</span><br><span class="line">System.out.println(&quot;deletionBack=&quot;+ buff);</span><br><span class="line"></span><br><span class="line">buff = new StringBuffer(&quot;0123456789&quot;);</span><br><span class="line">//删除下标为8字符</span><br><span class="line">buff.deleteCharAt(8);</span><br><span class="line">System.out.println(&quot;delectCharAtBack=&quot;+buff);</span><br><span class="line">// 输出如下:</span><br><span class="line">// buff=0123456789</span><br><span class="line">// deletionBack=01256789</span><br><span class="line">// delectCharAtBack=012345679</span><br></pre></td></tr></table></figure><h3 id="4-List与数组互相转换"><a href="#4-List与数组互相转换" class="headerlink" title="4.List与数组互相转换"></a>4.List与数组互相转换</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Connections.addAll(arr);</span><br><span class="line">list.toArray();<span class="comment">// Object[]  ans1 = list.toArray();</span></span><br></pre></td></tr></table></figure><h3 id="5-字符-字符串"><a href="#5-字符-字符串" class="headerlink" title="5.字符-&gt;字符串"></a>5.字符-&gt;字符串</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">String.valueOf(str.charAt(i))</span><br></pre></td></tr></table></figure><h3 id="6-StringBuilder的append-方法可以接受很多种类型"><a href="#6-StringBuilder的append-方法可以接受很多种类型" class="headerlink" title="6.StringBuilder的append()方法可以接受很多种类型"></a>6.StringBuilder的append()方法可以接受很多种类型</h3><hr><h3 id="7-StringBuilder的setCharAt-方法"><a href="#7-StringBuilder的setCharAt-方法" class="headerlink" title="7.StringBuilder的setCharAt()方法"></a>7.StringBuilder的setCharAt()方法</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//第一个参数为索引,第二个参数为该索引处设置的值</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setCharAt</span><span class="params">(<span class="type">int</span> index, <span class="type">char</span> ch)</span></span><br><span class="line">sb.setCharAt(end, temp);</span><br></pre></td></tr></table></figure><h3 id="8-重载的remove-方法"><a href="#8-重载的remove-方法" class="headerlink" title="8.重载的remove()方法"></a>8.重载的remove()方法</h3><p>ArrayList有两个remove()重载法，分别是:remove(int index) remove(Object o)</p><p>若参数输入为1，到底是删除对象1还是删除索引为1的元素呢?</p><p>最后发现：<strong>remove(1)是删除索引为1的元素；remove(new Integer(1))则删除元素1</strong></p><p>因为1默认是基本类型int</p><h3 id="9-数组转List集合方法：-注意包装类型"><a href="#9-数组转List集合方法：-注意包装类型" class="headerlink" title="9.数组转List集合方法：(注意包装类型)"></a>9.数组转List集合方法：(注意包装类型)</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">方法1:</span><br><span class="line">Integer[] nums = new Integer[5]; // 这里不能用int</span><br><span class="line">Arrays.fill(nums,1);</span><br><span class="line">List&lt;Integer&gt; list = Arrays.asList(nums);</span><br><span class="line"></span><br><span class="line">方法2:</span><br><span class="line">Integer[] nums = new Integer[5];</span><br><span class="line">List&lt;Integer&gt; list = new ArrayList&lt;&gt;();</span><br><span class="line">Collections.addAll(list, nums);</span><br></pre></td></tr></table></figure><h3 id="10-最大公约数gcd与最小公倍数"><a href="#10-最大公约数gcd与最小公倍数" class="headerlink" title="10.最大公约数gcd与最小公倍数"></a>10.最大公约数gcd与最小公倍数</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">BiggestFactor</span> &#123;</span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">test</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">a</span> <span class="operator">=</span> <span class="number">8</span>, b = <span class="number">5</span>;</span><br><span class="line">        System.out.println(a + <span class="string">&quot;与&quot;</span> + b + <span class="string">&quot;最大公约数为:&quot;</span> + maxCommonFactor(a, b));</span><br><span class="line">        System.out.println(a + <span class="string">&quot;与&quot;</span> + b + <span class="string">&quot;最小公倍数为:&quot;</span> + minCommonMultiple(a, b));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 最小公倍数:结合最大公约数</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> <span class="title function_">minCommonMultiple</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> a * b / maxCommonFactor(a, b);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 最大公约数:辗转相除法</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> <span class="title function_">maxCommonFactor</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span> &#123;</span><br><span class="line">        <span class="keyword">while</span> (b != <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="type">int</span> <span class="variable">r</span> <span class="operator">=</span> a % b;</span><br><span class="line">            a = b;</span><br><span class="line">            b = r;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> a;</span><br><span class="line">        <span class="comment">// return b &gt; 0 ? gcd(b, a % b) : a; (一步到位写法)</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> 刷题笔记 </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>七层模型和各自的作用</title>
+      <link href="/post/623cf32.html"/>
+      <url>/post/623cf32.html</url>
+      
+        <content type="html"><![CDATA[<h2 id="计算机网络"><a href="#计算机网络" class="headerlink" title="计算机网络"></a>计算机网络</h2><h3 id="七层模型和各自的作用"><a href="#七层模型和各自的作用" class="headerlink" title="七层模型和各自的作用"></a>七层模型和各自的作用</h3><p>浏览器输入网址访问一个网站时：<strong>物理层</strong>（将电信号转换为比特流），<strong>数据链路层</strong>（比特流转换成数据帧，MAC寻址），<strong>网络层</strong>（通过 IP 找到目标主机），<strong>传输层</strong>（通过TCP协议保证数据传输可靠，控制数据流量）**,会话层<strong>，</strong>表示层<strong>，</strong>应用层**（通过HTTP协议实现浏览器和服务器之间的通信，完成网页的展示）</p><p><strong>应用层</strong>：为计算机用户提供服务</p><p><strong>表示层</strong>：数据处理（加密解密、压缩解压缩</p><p><strong>会话层</strong>：管理（建立、维护、重连）应用程序之间的会话</p><p><strong>传输层</strong>：为两台主机进程之间的通信提供通用的数据传输服务</p><p><strong>网络层</strong>：路由和寻址</p><p><strong>数据链路层</strong>：帧编码和误差纠正控制</p><p><strong>物理层</strong>：比特流传输</p><p>每一层都需要使用下一层提供的功能，如传输层需要使用网络层提供的路由和寻址功能才知道把数据传输到哪里去</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 计算机基础 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 计算机网络 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>TCP 和 UDP 区别、分别适用于什么场景</title>
+      <link href="/post/6ae7ca9e.html"/>
+      <url>/post/6ae7ca9e.html</url>
+      
+        <content type="html"><![CDATA[<h3 id="TCP-和-UDP-区别、分别适用于什么场景"><a href="#TCP-和-UDP-区别、分别适用于什么场景" class="headerlink" title="TCP 和 UDP 区别、分别适用于什么场景"></a>TCP 和 UDP 区别、分别适用于什么场景</h3><p>传输层协议 UDP基于数据报传输，TCP基于字节流传输</p><p>TCP 是一种 <strong>面向连接的</strong>、<strong>可靠的</strong> 传输协议。通过 <strong>三次握手</strong>、<strong>四处挥手</strong> 进行连接和断开连接，保证数据的<strong>可靠性、完整性和顺序性</strong>，高效传输</p><p>TCP 工作流程：</p><ul><li>客户端发送连接请求 （SYN）</li><li>服务端收到连接请求，回复确认请求（SYN+ACK)</li><li>客户端收到确认请求，回复确认（ACK），完成连接</li><li>数据传输完成后，客户端和服务端分别发送关闭连接请求（FIN）</li><li>双方收到关闭请求后，回复确认（ACK）</li><li>双方都受到对方的关闭请求和确认后，关闭连接</li></ul><p>UDP <strong>无连接、不可靠</strong>。不需要建立连接和维护连接状态，较高传输速度和实时性，不保证数据完整性和顺序性</p><p>适用于：实时性要求高、数据量小、丢失数据不影响结果的场景，如视频直播、语音通话等</p><p>UDP 工作流程：</p><ul><li>客户端发送数据报</li><li>服务端接收数据报后，直接处理数据并回复确认</li><li>客户端收到确认后，继续发送下一个数据报</li><li>如果数据报丢失或损坏，不会重传，直接忽略</li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> 计算机基础 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 计算机网络 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>SpringBoot 自动装配原理</title>
+      <link href="/post/4bfb94d8.html"/>
+      <url>/post/4bfb94d8.html</url>
+      
+        <content type="html"><![CDATA[<h1 id="SpringBoot-自动装配原理"><a href="#SpringBoot-自动装配原理" class="headerlink" title="SpringBoot 自动装配原理"></a>SpringBoot 自动装配原理</h1><h2 id="自动装配："><a href="#自动装配：" class="headerlink" title="自动装配："></a>自动装配：</h2><p>从 META-INF&#x2F;spring.factories 文件中获取到对应的需要进行自动装配的类，生成响应的 Bean 对象，交给 Spring 容器进行管理</p><h2 id="启动类注解流程关系分析："><a href="#启动类注解流程关系分析：" class="headerlink" title="启动类注解流程关系分析："></a>启动类注解流程关系分析：</h2><p><img src="/img/img.png" alt="image"></p><p>@SpringBootConfiguration：表明这是一个 SpringBoot 的配置类；</p><p>@ComponentScan：配置扫描路径，用于加载使用注解格式定义的 Bean</p><p>@EnableAutoConfiguration：开启自动装配功能</p><ul><li>@AutoConfigurationPackage ：依赖包及其所有子包下组件扫描到 Spring 容器</li><li>@Import（AutoConfigurationImportSelector.class）导入该类，通过该类的 selectImports 方法去读取并筛选出 MATE-INF&#x2F;spring.factories 文件中符号要求组件的全类名，交由 IOC 容器并注册为 Bean<ul><li>详解：<ol><li><code>getAutoConfigurationEntry</code> 给容器批量导入一些组件</li><li><code>getCandidateConfigurations</code> 获取到所有需要导入到容器中的配置类</li><li><code>loadSpringFactories</code> 利用工厂加载得到所有组件</li></ol></li></ul></li></ul><p>条件装配：@Conditional</p><h2 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">META-INF/spring.factories配置文件中org.springframework.boot.autoconfigure.EnableAutoConfiguration = 全类名</span><br></pre></td></tr></table></figure><ol><li>在Spring Boot项目中有一个注解@SpringBootApplication，这个注解是对三个注解进行了封装：@SpringBootConfiguration、@EnableAutoConfiguration、@ComponentScan 其中@EnableAutoConfiguration 是实现自动化配置的核心注解</li><li>该注解通过@Import注解导入AutoConfigurationImportSelector，这个类实现了一个导入器接口 ImportSelector。在该接口中存在一个方法selectImports</li><li>AutoConfigurationImportSelector 类中重写了这个方法</li><li>该方法内部就是读取了项目的 classpath 路径下 META-INF&#x2F;spring.factories 文件中的所配置的类的全类名。交由 IOC 容器进行创建和管理</li></ol>]]></content>
+      
+      
+      <categories>
+          
+          <category> 框架 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> SpringBoot </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Linux 常见命令</title>
+      <link href="/post/fa29a82.html"/>
+      <url>/post/fa29a82.html</url>
+      
+        <content type="html"><![CDATA[<h2 id="Linux-常见命令"><a href="#Linux-常见命令" class="headerlink" title="Linux 常见命令"></a>Linux 常见命令</h2><p><strong>基本常用</strong>：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">pwd 查看当前所在文件夹</span><br><span class="line">touch 如果文件不存在，新建文件</span><br><span class="line">find -name &quot;*1*&quot; 查找包含 1 的文件</span><br><span class="line">tar -zcvf *.tar.gz 被压缩文件/路径</span><br><span class="line">tar -zxvf *.tar.gz -C 目标路径</span><br><span class="line">tree树形列出文件目录结构</span><br><span class="line">echo终端显示指定文字</span><br><span class="line">cat查看文件信息</span><br><span class="line">date查看系统时间</span><br><span class="line">kill -9 杀死进程</span><br><span class="line">top动态显示运行中的进程且排序</span><br><span class="line">witch查看执行命令所在位置</span><br><span class="line">ifconfig查看当前网卡配置信息</span><br><span class="line">ping ip检查到目标ip地址是否连接正常</span><br><span class="line">isof -i:端口号查看端口号占用</span><br></pre></td></tr></table></figure><p><strong>apt 安装&#x2F;卸载</strong></p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install 软件包</span><br><span class="line">sudo apt remove 软件名</span><br><span class="line">sudo apt upgrade</span><br></pre></td></tr></table></figure><p><strong>ls</strong></p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">. 代表当前目录</span><br><span class="line">.. 代表上一级目录</span><br><span class="line">-a包括隐藏文件</span><br><span class="line">-lh 列表方式 人性化 显示文件详细信息</span><br></pre></td></tr></table></figure><p><strong>cd</strong></p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd ~切换到当前用户的主目录</span><br><span class="line">cd..切换到上级目录</span><br><span class="line">cd -最近两次工作目录之间切换</span><br></pre></td></tr></table></figure><p><strong>mkdir</strong></p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-p递归创建目录</span><br></pre></td></tr></table></figure><p><strong>rm</strong></p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-rf递归删除、强制删除</span><br></pre></td></tr></table></figure><p><strong>tree</strong></p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-d只显示目录</span><br></pre></td></tr></table></figure><p><strong>cp</strong></p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-i覆盖文件前提示</span><br><span class="line">-r递归</span><br></pre></td></tr></table></figure><p><strong>mv</strong></p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-i覆盖文件前提示</span><br></pre></td></tr></table></figure><p><strong>grep</strong></p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-i忽略大小写</span><br></pre></td></tr></table></figure><p><strong>ps</strong></p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">a所有进程</span><br><span class="line">u详细状态</span><br><span class="line">x没有控制终端的进程</span><br></pre></td></tr></table></figure><p><strong>切换用户</strong></p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">su -用户名</span><br><span class="line">exit退出</span><br></pre></td></tr></table></figure><p><strong>修改文件权限</strong></p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">chown 用户名 文件名修改拥有者</span><br><span class="line">chgrp -R 组名 文件名修改组</span><br><span class="line">chmod -R 755 文件名修改权限</span><br></pre></td></tr></table></figure><p><strong>关机重启</strong></p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">shutdown -r now重启</span><br><span class="line">shutdown 20:00定时关机</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> 后端开发 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Linux </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>HTTP 协议、作用、常见响应码</title>
+      <link href="/post/5b092fe4.html"/>
+      <url>/post/5b092fe4.html</url>
+      
+        <content type="html"><![CDATA[<h3 id="HTTP-协议、作用"><a href="#HTTP-协议、作用" class="headerlink" title="HTTP 协议、作用"></a>HTTP 协议、作用</h3><p>超文本传输协议、应用层</p><p>超文本：支持超越文本的内容，如图片、视频、音频等文件</p><p>传输：A B 两点之间传输数据</p><p>协议：规范</p><p>作用：在计算机之间进行【两点传输】【超文本】文件的协议</p><p>项目实现的Web功能：</p><ul><li>建立连接：通常基于 TCP 协议 ，建立两点之间连接后进行传输</li><li>发送请求：Http 请求包括请求头、请求体</li><li>处理请求：服务端收到请求后解析处理</li><li>响应请求：发送响应状态码、响应头、响应体</li><li>关闭连接</li></ul><h3 id="HTTP-常见状态码"><a href="#HTTP-常见状态码" class="headerlink" title="HTTP 常见状态码"></a>HTTP 常见状态码</h3><p>口诀：一信 二成 三重 四五败</p><p>1xx：提示信息，协议处理的中间状态，还需要后续操作</p><p>2xx：</p><ul><li>200：成功状态码</li><li>204：无Body版</li><li>206：part版（返回的body数据不是资源的全部</li></ul><p>3xx：</p><ul><li>301：永久重定向</li><li>302：临时重定向</li><li>304：不具有跳转意义，资源未修改，重定向到缓存</li></ul><p>4xx：</p><ul><li>404：资源不存在或者未找到</li><li>400：请求报文有错误</li><li>401：请求需要认证</li><li>403：禁止访问</li></ul><p>5xx：（服务端</p><ul><li>500：笼统错误码</li><li>502：服务器网关或者代理出现问题</li><li>503：服务器正忙，无法处理请求</li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> 计算机基础 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 计算机网络 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+  
+  
+</search>
